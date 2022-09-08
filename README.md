@@ -7,3 +7,8 @@
 Алексей - https://github.com/AlexBurkh
 
 (Диаграмма)[https://github.com/temkalap/GBProject/blob/main/PhoneBook/cd.drawio]
+
+Модули
+Handler-Артем
+Console, View, Controller, main - Александр
+contact, contact_book, text_logger - Алексей
