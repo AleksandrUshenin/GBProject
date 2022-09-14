@@ -5,3 +5,4 @@ workspace.xml
 /.idea
 /data
 database*
+/folder

@@ -4,17 +4,21 @@ from text_logger import text_logger
 
 from Handler import JsonHandler, XMLHandler
 
+import telebot
+
 class Controller:
 
-    _Book = contact_book.contact_book()
-    _Con_Print = UserInterface()
+    _Book = None
+    _Con_Print = None
     _Logger = text_logger()
     _JsonLogg = JsonHandler()
     _XMLLogg = XMLHandler()
+    _Bot = None
 
-    def __init__(self, book, conPrint):
+    def __init__(self, book, conPrint, Bot):
         self._Book = book
         self._Con_Print = conPrint    
+        self._Bot = Bot
 
     def Load_Data(self):
         self._Con_Print.Print_Menu_Load_Save(1)
@@ -34,14 +38,12 @@ class Controller:
         self._Con_Print.Print_Menu_Load_Save(2)
         res = self._Con_Print.Read_Line()
 
-        print(type(Booklist))
         if res == '1': 
             self._JsonLogg.export(Booklist)
         if res == '2':
            self._XMLLogg.export(Booklist)
 
         self.Do_Logger(1, f'Сохранено через {res} - способ')
-        #вместо data будет реализация  
 
     def StartLoad(self):
         self.Do_Logger(1, 'Файл загружен при запуске приложения')
@@ -75,11 +77,11 @@ class Controller:
             self._Con_Print.Print_In_Display('Не найден контакт!')
             self.Do_Logger(1, 'Не найден контакт')
 
-    def Add_User(self):
-        name =   self._Con_Print.Read_Line('Введите имя: ')
-        patronymic = self._Con_Print.Read_Line('Введите отчество: ')
-        surname = self._Con_Print.Read_Line('Введите фамилию: ')
-        number = self._Con_Print.Read_Line('Введите номер: ')
+    def Add_User(self, message):
+        name = self._Con_Print.WriteLine(message, 'Введите имя: ')
+        patronymic = self._Con_Print.WriteLine('Введите отчество: ')
+        surname = self._Con_Print.WriteLine('Введите фамилию: ')
+        number = self._Con_Print.WriteLine('Введите номер: ')
 
         self._Book.add_contact(name, patronymic, surname, number)
 

@@ -3,17 +3,21 @@ from email import message
 from os import lseek
 from Console import Console
 
+import telebot
 
 class UserInterface:
-    con = Console()
+    con = None
+
+    def __init__(self, Bot):
+        self.con = Console(Bot)
 
     def Print_Menu(self):
 
-        self.con.Clear()
-        self.con.WriteLine('\n\t\tТелефонная книга')
-        self.con.WriteLine('======================================================')
-        self.con.WriteLine('\n\tКоманды:\n\t    1 - Добавить\n\t    2 - Вывести на экран список\
-        \n\t    3 - Удалить\n\t    4 - Поиск по id\n\t    5 - Поиск по фамилии\n\t    6 - Загрузить\n\t    7 - Сохранить\n\t    0 - Выход')
+        line = 'Телефонная книга:\nКоманды:\n1 - Добавить\n2 - Вывести на экран список\
+        \n3 - Удалить\n4 - Поиск по id\n5 - Поиск по фамилии\n6 - Загрузить\n7 - Сохранить\n0 - Выход'
+
+        #self.con.WriteLine(line)
+        return line
     
     def Print_Menu_Load_Save(self, index):
         massage = ''
@@ -21,24 +25,25 @@ class UserInterface:
             message = 'Загрузить'
         else:
             message = 'Сохранить'
-        self.con.WriteLine('\n\t\tТелефонная книга')
-        self.con.WriteLine('======================================================')
-        self.con.WriteLine('\n\t 1 - {} с помощью json    \n\t 2 - {} с помощью html'.format(message, message))
+        
+        line = '\nТелефонная книга\n 1 - {} с помощью json\n2 - {} с помощью html'.format(message, message)
+        self.con.WriteLine(line)
 
     def Read_Line(self, line = '\n\tВведите номер команды: '):
-        con = Console()
-        return con.ReadLine(line)
+        return self.con.ReadLine(line)
     
     def Print_List_Book(self, lisrUsers):
-        self.con.Clear()
-        self.con.WriteLine('\n\t\t Список контактов: \n')
-        self.con.WriteLine('===================================================================================')
+        line = '\n Список контактов:'
         
         for User in lisrUsers:
+            line += '\nid: {} name: {} patronymic: {} surname: {} number: {}'.format(
+                User.id, User.name, User.patronymic, User.surname, User.number)
 
-            self.con.WriteLine('\tid: {} name: {} patronymic: {} surname: {} number: {}'.format(
-                User.id, User.name, User.patronymic, User.surname, User.number))
-        self.Read_Line('')
+        self.con.WriteLine(line)
         
     def Print_In_Display(self, line:str):
         self.con.WriteLine(line)
+
+    def WriteLine(message, line:str):
+        telebot.TeleBot.send_message(chat_id = message.chat.id, text = line)
+        return 'test'
