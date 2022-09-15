@@ -13,8 +13,8 @@ class UserInterface:
 
     def Print_Menu(self):
 
-        line = 'Телефонная книга:\nКоманды:\n1 - Добавить\n2 - Вывести на экран список\
-        \n3 - Удалить\n4 - Поиск по id\n5 - Поиск по фамилии\n6 - Загрузить\n7 - Сохранить\n0 - Выход'
+        line = 'Телефонная книга:\nКоманды:\nadd - Добавить\nprint - Вывести на экран список\
+        \ndelete - Удалить\nserid - Поиск по id\nsersur - Поиск по фамилии\nload - Загрузить\nsave - Сохранить\nexit - Выход'
 
         #self.con.WriteLine(line)
         return line
@@ -39,7 +39,7 @@ class UserInterface:
             line += '\nid: {} name: {} patronymic: {} surname: {} number: {}'.format(
                 User.id, User.name, User.patronymic, User.surname, User.number)
 
-        self.con.WriteLine(line)
+        return line
         
     def Print_In_Display(self, line:str):
         self.con.WriteLine(line)

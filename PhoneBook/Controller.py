@@ -13,7 +13,7 @@ class Controller:
     _Logger = text_logger()
     _JsonLogg = JsonHandler()
     _XMLLogg = XMLHandler()
-    _Bot = None
+    _Bot = None #telebot.TeleBot()
 
     def __init__(self, book, conPrint, Bot):
         self._Book = book
@@ -71,17 +71,17 @@ class Controller:
             self.Do_Logger(3, "Ошибка поиска! Тип поиска: {}".format(id_Command))
             return
             
-
     def Search_correctly(self, result):
         if result == [] or result == None:
             self._Con_Print.Print_In_Display('Не найден контакт!')
             self.Do_Logger(1, 'Не найден контакт')
 
-    def Add_User(self, message):
-        name = self._Con_Print.WriteLine(message, 'Введите имя: ')
-        patronymic = self._Con_Print.WriteLine('Введите отчество: ')
-        surname = self._Con_Print.WriteLine('Введите фамилию: ')
-        number = self._Con_Print.WriteLine('Введите номер: ')
+    def Add_User(self, line):
+        data = self.Pars_line(line)
+        name = data[0]
+        patronymic = data[1]
+        surname = data[2]
+        number = data[3]
 
         self._Book.add_contact(name, patronymic, surname, number)
 
@@ -93,16 +93,21 @@ class Controller:
         #res = self._Book.get_unsorted()
         self._Con_Print.Print_List_Book(res)
 
-    def Delite(self):
-        id = self._Con_Print.Read_Line('Введите id для удоления: ')
+        users = self._Con_Print.Print_List_Book(res)
+        return users
+
+    def Delite(self, id):
+        #id = self._Con_Print.Read_Line('Введите id для удоления: ')
 
         result = self._Book.delete_contact(int(id))
 
         if result:
             self.Do_Logger(1, 'Удален контакт id: {}'.format(id))
+            return f'{id} удален'
         else:
             self._Con_Print.Print_In_Display('error')
             self.Do_Logger(3, 'Ошибка при удалении контакта по id: {}'.format(id))
+        return f'{id} не удален'
 
     def Do_Logger(self, index, message):
         if index == 1:
@@ -111,3 +116,10 @@ class Controller:
             self._Logger.WARNING(message)
         else:
             self._Logger.ERROR(message)
+
+    def Pars_line(self, line:str):
+        data = []
+        data = line.split()
+        print('Pars_line', data)
+        return data
+
