@@ -20,9 +20,9 @@ class Controller:
         self._Con_Print = conPrint    
         self._Bot = Bot
 
-    def Load_Data(self):
+    def Load_Data(self, res):
         self._Con_Print.Print_Menu_Load_Save(1)
-        res = self._Con_Print.Read_Line()
+        #res = self._Con_Print.Read_Line()
 
         self.Do_Logger(1, f'Загружено через {res} - способ')
 
@@ -34,9 +34,9 @@ class Controller:
             print(data)
             return data
 
-    def Save_Data(self, Booklist):
+    def Save_Data(self, Booklist, res):
         self._Con_Print.Print_Menu_Load_Save(2)
-        res = self._Con_Print.Read_Line()
+        #res = self._Con_Print.Read_Line()
 
         if res == '1': 
             self._JsonLogg.export(Booklist)
@@ -49,27 +49,31 @@ class Controller:
         self.Do_Logger(1, 'Файл загружен при запуске приложения')
         return self._XMLLogg.importin()
 
-    def Search(self, id_Command):
+    def Search(self, id_Command, text):
         result = None
         try:
             if id_Command == 1:
-                id = int(self._Con_Print.Read_Line('Введите id: '))
+                id = text
+                #id = int(self._Con_Print.Read_Line('Введите id: '))
                 result = self._Book.get_by_id(id)
                 
                 self.Search_correctly(result)
 
-                self._Con_Print.Print_List_Book(result)
+                result = self._Con_Print.Print_List_Book(result)
             else:
-                surname = self._Con_Print.Read_Line('Введите фамилию: ')
+                surname = text
+                #surname = self._Con_Print.Read_Line('Введите фамилию: ')
                 result = self._Book.get_by_surname(surname)
 
-                self.Search_correctly(result)
+                result = self.Search_correctly(result)
 
                 self._Con_Print.Print_List_Book(result)        
         except:
             self._Con_Print.Print_In_Display('error')
             self.Do_Logger(3, "Ошибка поиска! Тип поиска: {}".format(id_Command))
-            return
+            return 
+
+        return result
             
     def Search_correctly(self, result):
         if result == [] or result == None:

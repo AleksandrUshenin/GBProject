@@ -36,26 +36,27 @@ def send_welcome(message):
 
 @bot.message_handler(content_types=['text'])
 def Add_User(message):
+    print('message.text', message.text)
     if message.text == 'add':
         bot.send_message(message.from_user.id, "Введите имя: ")
         bot.register_next_step_handler(message, Get_Name)
-    elif 'print':
+    elif message.text == 'print':
         bot.send_message(message.from_user.id, pro.Do_Commands('2', ''))
-    elif 'delete':
+    elif message.text == 'delete':
         bot.send_message(message.from_user.id, "Введите id для удоления: ")
         bot.register_next_step_handler(message, Delete)
-    elif 'serid':
+    elif message.text == 'serid':
         bot.send_message(message.from_user.id, "Введите id: ")
         bot.register_next_step_handler(message, Searchid)
-    elif 'ser':
+    elif message.text == 'ser':
         bot.send_message(message.from_user.id, "Введите фамилию: ")
         bot.register_next_step_handler(message, Search)
-    elif 'load':
-        bot.send_message(message.from_user.id, "Введите id для удоления: ")
-        bot.register_next_step_handler(message, Delete)
-    elif 'save':
-        bot.send_message(message.from_user.id, "Введите id для удоления: ")
-        bot.register_next_step_handler(message, Delete)
+    elif message.text == 'load':
+        bot.send_message(message.from_user.id, "Введите способ для загрузки:\n1 - через json\n2 - через html")
+        bot.register_next_step_handler(message, Load)
+    elif message.text == 'save':
+        bot.send_message(message.from_user.id, "Введите способ для сохранения:\n1 - через json\n2 - через html")
+        bot.register_next_step_handler(message, Save)
 
 def Get_Name(message):
     global name
@@ -89,11 +90,18 @@ def Delete(message):
 
 def Searchid(message):
     id = int(message.text)
-    bot.send_message(message.from_user.id, pro.Do_Commands('4', ''))
+    bot.send_message(message.from_user.id, pro.Do_Commands('4', id))
 
 def Search(message):
-    global id
     surname = message.text
-    bot.send_message(message.from_user.id, pro.Do_Commands('5', ''))
+    bot.send_message(message.from_user.id, pro.Do_Commands('5', surname))
+
+def Load(message):
+    mes = message.text
+    pro.Do_Commands('6', mes)
+
+def Save(message):
+    mes = message.text
+    pro.Do_Commands('7', mes)
 
 bot.infinity_polling()

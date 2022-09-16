@@ -18,7 +18,7 @@ class Program:
         self._ConPrint = UserInterface(self._bot)
         self._Control = Controller(self._Book, self._ConPrint, self._bot)
 
-        self._Book.import_contact_list(self._Control.StartLoad())
+        #self._Book.import_contact_list(self._Control.StartLoad())
 
     def Run(self):
         print('\nStart bot\n')
@@ -37,13 +37,13 @@ class Program:
         elif id_command == '3':
             return self._Control.Delite(text)
         elif id_command == '4':
-            return self._Control.Search(1)
+            return self._Control.Search(1, text)
         elif id_command == '5':
-            return self._Control.Search(2)
+            return self._Control.Search(2, text)
         elif id_command == '6':
-            return self._Book.import_contact_list(self._Control.Load_Data())
+            return self._Book.import_contact_list(self._Control.Load_Data(text))
         elif id_command == '7':
-            return self._Control.Save_Data(self._Book.get_sorted())
+            return self._Control.Save_Data(self._Book.get_sorted(), text)
             
         return 'message.text' + id_command    
 
