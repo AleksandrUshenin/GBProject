@@ -62,18 +62,19 @@ class Controller:
                 result = self._Con_Print.Print_List_Book(result)
             else:
                 surname = text
+                print('surname', surname)
                 #surname = self._Con_Print.Read_Line('Введите фамилию: ')
                 result = self._Book.get_by_surname(surname)
-
-                result = self.Search_correctly(result)
-
+                print('result1', result)
+                self.Search_correctly(result)
+                print('result2', result)
                 self._Con_Print.Print_List_Book(result)        
         except:
             self._Con_Print.Print_In_Display('error')
             self.Do_Logger(3, "Ошибка поиска! Тип поиска: {}".format(id_Command))
             return 
 
-        return result
+        return self.Get_User_line(result)
             
     def Search_correctly(self, result):
         if result == [] or result == None:
@@ -102,7 +103,6 @@ class Controller:
 
     def Delite(self, id):
         #id = self._Con_Print.Read_Line('Введите id для удоления: ')
-
         result = self._Book.delete_contact(int(id))
 
         if result:
@@ -127,3 +127,9 @@ class Controller:
         print('Pars_line', data)
         return data
 
+    def Get_User_line(self, lisrUsers):
+        line = '\n Список:'
+        for User in lisrUsers:
+            line += '\nid: {} name: {} patronymic: {} surname: {} number: {}'.format(
+                User.id, User.name, User.patronymic, User.surname, User.number)
+        return line

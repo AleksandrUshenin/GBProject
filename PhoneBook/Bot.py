@@ -86,7 +86,7 @@ def Get_Number(message):
 def Delete(message):
     global id
     id = int(message.text)
-    bot.send_message(message.from_user.id, pro.Do_Commands('3', ''))
+    bot.send_message(message.from_user.id, pro.Do_Commands('3', id))
 
 def Searchid(message):
     id = int(message.text)

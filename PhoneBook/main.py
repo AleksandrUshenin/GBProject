@@ -18,7 +18,7 @@ class Program:
         self._ConPrint = UserInterface(self._bot)
         self._Control = Controller(self._Book, self._ConPrint, self._bot)
 
-        #self._Book.import_contact_list(self._Control.StartLoad())
+        self._Book.import_contact_list(self._Control.StartLoad())
 
     def Run(self):
         print('\nStart bot\n')
