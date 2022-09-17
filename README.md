@@ -6,12 +6,12 @@
 - в файле на одной строке хранится одна часть записи, пустая строка - разделитель
 
 В работе над прошлым проектом работали люди:
-Артем - https://github.com/temkalap
-Александр - https://github.com/AleksandrUshenin
-Алексей - https://github.com/AlexBurkh
+- Артем - https://github.com/temkalap
+- Александр - https://github.com/AleksandrUshenin
+- Алексей - https://github.com/AlexBurkh
 
 В проекте над Telegram bot работал:
 -----------------------------------
-Александр - https://github.com/AleksandrUshenin
+- Александр - https://github.com/AleksandrUshenin
 
 (Диаграмма)[https://github.com/temkalap/GBProject/blob/main/PhoneBook/cd.drawio]
