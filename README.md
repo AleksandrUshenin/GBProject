@@ -15,3 +15,13 @@
 - Александр - https://github.com/AleksandrUshenin
 
 (Диаграмма)[https://github.com/temkalap/GBProject/blob/main/PhoneBook/cd.drawio]
+
+
+Инструкция:
+-----------
+- Установка:
+    1.Клонируем репозиторий.
+    2.Настраиваем среду Python(установив туда [pyTelegramBotAPI](https://github.com/eternnoir/pyTelegramBotAPI#writing-your-first-bot "Необязательная подсказка"))
+    
+- Запуск: 
+    1.Запуск Bot.py
