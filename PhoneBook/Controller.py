@@ -96,7 +96,7 @@ class Controller:
     def Print_Book(self):
         res = self._Book.get_sorted()
         #res = self._Book.get_unsorted()
-        self._Con_Print.Print_List_Book(res)
+        #self._Con_Print.Print_List_Book(res)
 
         users = self._Con_Print.Print_List_Book(res)
         return users

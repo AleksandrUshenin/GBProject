@@ -1,11 +1,15 @@
-from tkinter import E
+
+from cgitb import text
 from main import Program
+
 import telebot
+from telebot import types
 
 name = ''
 patronymic = ''
 surname = ''
 number = ''
+textStr = ''
 
 bot = telebot.TeleBot("5228215323:AAEKbGo5nILd9gYYSIQTbd1EYQq441G7PO8", parse_mode=None)
 
@@ -17,8 +21,6 @@ me = bot.get_me()
 @bot.message_handler(commands = 'menu')
 def send_welcome(message):
     bot.reply_to(message, pro.Run())
-    #pro.Do_Commands('1')
-	#bot.reply_to(message, "Телефонная книга:\nHi")
 
 #@bot.message_handler(func=lambda message: True)
 #def echo_all(message):
@@ -78,10 +80,19 @@ def Get_Surname(message):
 
 def Get_Number(message):
     global number
+    global textStr
     number = message.text
-    text = f'{name} {patronymic} {surname} {number}'
-    bot.send_message(message.from_user.id, f'User = {text}')
-    pro.Do_Commands('1', text)
+    textStr = f'{name} {patronymic} {surname} {number}'
+    keyboard = Buttons(message)
+    bot.send_message(message.from_user.id, f'User = {textStr}', reply_markup = keyboard)
+
+def Buttons(message):
+    keyboard = types.InlineKeyboardMarkup()
+    key_yes = types.InlineKeyboardButton(text='Да', callback_data='yes')
+    keyboard.add(key_yes)
+    key_no= types.InlineKeyboardButton(text='Нет', callback_data='no')
+    keyboard.add(key_no)
+    return keyboard
 
 def Delete(message):
     global id
@@ -103,5 +114,15 @@ def Load(message):
 def Save(message):
     mes = message.text
     pro.Do_Commands('7', mes)
+
+@bot.callback_query_handler(func=lambda call: True)
+def callback_worker(call):
+    global textStr
+    if call.data == "yes": #call.data это callback_data, которую мы указали при объявлении кнопки
+        pro.Do_Commands('1', textStr) #код сохранения данных, или их обработки
+        bot.send_message(call.message.chat.id, 'Запомню : )')
+    elif call.data == "no":
+        textStr = ''
+        bot.send_message(call.message.chat.id, 'Отмена')
 
 bot.infinity_polling()
