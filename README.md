@@ -21,7 +21,8 @@
 -----------
 - Установка:
     1.Клонируем репозиторий.
-    2.Настраиваем среду Python(установив туда [pyTelegramBotAPI](https://github.com/eternnoir/pyTelegramBotAPI#writing-your-first-bot "Необязательная подсказка"))
+    2.Проверить среду Python(в папке folder [pyTelegramBotAPI](https://github.com/eternnoir/pyTelegramBotAPI#writing-your-first-bot "Необязательная подсказка"))
     
 - Запуск: 
     1.Запуск Bot.py
+        folder\Scripts\python .\Bot.py
