@@ -18,9 +18,12 @@ pro.Run()
 
 me = bot.get_me()
 
-@bot.message_handler(commands = 'menu')
+@bot.message_handler(commands = ['menu', 'button'])
 def send_welcome(message):
-    bot.reply_to(message, pro.Run())
+    if message.text == '/menu':
+        bot.reply_to(message, pro.Run())
+    elif message.text == '/button':
+        Com_Button(message)
 
 #@bot.message_handler(func=lambda message: True)
 #def echo_all(message):
@@ -110,10 +113,12 @@ def Search(message):
 def Load(message):
     mes = message.text
     pro.Do_Commands('6', mes)
+    bot.send_message(chat_id = message.chat.id, text = 'Успешно загружено')
 
 def Save(message):
     mes = message.text
     pro.Do_Commands('7', mes)
+    bot.send_message(chat_id = message.chat.id, text = 'Успешно сохранено')
 
 @bot.callback_query_handler(func=lambda call: True)
 def callback_worker(call):
@@ -124,5 +129,17 @@ def callback_worker(call):
     elif call.data == "no":
         textStr = ''
         bot.send_message(call.message.chat.id, 'Отмена')
+
+def Com_Button(message):
+    markup = types.ReplyKeyboardMarkup()#row_width = 2
+    itembtn1 = types.KeyboardButton('add')
+    itembtn2 = types.KeyboardButton('print')
+    itembtn3 = types.KeyboardButton('delete')
+    itembtn4 = types.KeyboardButton('serid')
+    itembtn5 = types.KeyboardButton('ser')
+    itembtn6 = types.KeyboardButton('load')
+    itembtn7 = types.KeyboardButton('save')
+    markup.add(itembtn1, itembtn2, itembtn3, itembtn4, itembtn5, itembtn6, itembtn7)
+    bot.send_message(chat_id = message.chat.id, text = 'Выбкри:', reply_markup = markup)
 
 bot.infinity_polling()
