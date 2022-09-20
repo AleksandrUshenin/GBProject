@@ -6,6 +6,8 @@
 - в файле на одной строке хранится одна часть записи, пустая строка - разделитель
 
 В работе над прошлым проектом работали люди:
+- Сылка на проект - https://github.com/Artlaptev/GBProject
+
 - Артем - https://github.com/temkalap
 - Александр - https://github.com/AleksandrUshenin
 - Алексей - https://github.com/AlexBurkh
