@@ -25,4 +25,4 @@
     
 - Запуск: 
     1.Запуск Bot.py
-        folder\Scripts\python .\Bot.py
+    выпролнив команду folder\Scripts\python .\Bot.py 
